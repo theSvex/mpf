@@ -1,0 +1,83 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MPF
+{
+    class Program
+    {
+
+        public static double GetCoal(double temperature)
+        {
+            return (912 - temperature) / 245.45;
+        }
+
+        public static void wypisz(double[] tab = null, double[] tab2 = null)
+        {
+            if (tab != null)
+            {
+                for (int i = 0; i < tab.Length; i++)
+                    Console.Write(Math.Round(tab[i],4) + "\t");
+                Console.WriteLine();
+            }
+            if (tab2 != null)
+            {
+                for (int i = 0; i < tab2.Length; i++)
+                    Console.Write(Math.Round(tab2[i],4) + "\t");
+                Console.WriteLine();
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            double[] tab = new double[5] { 0.77, 0.02, 0.02, 0.02, 0.02 };
+            double[] tab2 = new double[5] { 0, 0, 0, 0, 0 };
+            //wypisz(tab);
+            double D = 0.1, dt = 0.01;
+            double toCos = 0;
+
+            for (double dx2 = 0.1; dx2 < 0.5; dx2+=0.1)
+            {
+                toCos = (D * dt) / dx2;
+                for (int i = 1; i < tab.Length-1; i++)
+                    tab2[i] = (1 - 2 * toCos) * tab[i] + toCos * (tab[i - 1] + tab[i + 1]);
+                tab2[0] = (1 - 2 * toCos) * tab.First() + toCos * (tab.First() + tab[1]);
+                tab2[tab2.Length - 1] = (1 - 2 * toCos) * tab.Last() + toCos * (tab2[tab2.Length - 2] + tab.Last());
+                tab = tab2;
+                //wypisz(tab);
+            }
+        }
+    }
+}
+
+//obliczWegiel = @(T)((T - 912) / -245.45);
+
+//tab(1,:) = [0.67, 0.67 , 0.67, 0.67, 0.02, 0.02];
+//tab(2,:) = [0, 0, 0, 0, 0, 0];
+//D = 0.001;
+//dt = 0.01;
+//Vn = 100;
+//xMinusJeden = 0.67;
+//xLast = 0.02;
+//ksi = 5;
+//for T=723:dt*Vn:912
+//    while(ksi <= length(tab(1,:)) && tab(1,ksi) < obliczWegiel(T))
+//        for dx2 = 0.1 : 0.1 : 0.5
+//            toCos = D * dt / dx2;
+//            for i=2:length(tab(1,:)) - 1
+//                tab(2,i) = (1 - 2 * toCos)* tab(1,i) + toCos * (tab(1,i-1) + tab(1,i+1));
+//            end
+//                tab(2,1) = (1 - 2 * toCos)* tab(1,i) + toCos * (xMinusJeden + tab(1,i+1));
+//                tab(2,length(tab(1,:))) = (1 - 2 * toCos)* tab(1,i) + toCos * (tab(1,i-1) + xLast);
+//            for i=1:length(tab(1,:))
+//                tab(1,i) = tab(2,i);
+//            end
+//            xMinusJeden = tab(2,1);
+//            xLast = tab(2,length(tab(1,:)));
+//        end
+//    end
+//    ksi = ksi + 1;
+//    display(ksi);
+//end

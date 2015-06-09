@@ -1,0 +1,5 @@
+c:\users\comarch\documents\visual studio 2013\Projects\MPF\MPF\bin\Release\MPF.exe.config
+c:\users\comarch\documents\visual studio 2013\Projects\MPF\MPF\bin\Release\MPF.exe
+c:\users\comarch\documents\visual studio 2013\Projects\MPF\MPF\bin\Release\MPF.pdb
+c:\users\comarch\documents\visual studio 2013\Projects\MPF\MPF\obj\Release\MPF.exe
+c:\users\comarch\documents\visual studio 2013\Projects\MPF\MPF\obj\Release\MPF.pdb
