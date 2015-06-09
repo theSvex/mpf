@@ -59,7 +59,7 @@ namespace MPF
             double R = 8.3144;
             double d0 = 0.000041;
             double dx2 = 0.01;
-            double Vn = 0.5;
+            double Vn = 15;
             double D = d0 * Math.Exp(-Q / (R * temp_k)) * 1e10;
             double wspDyfuzji = 0;
             int ksi = 5;
