@@ -59,16 +59,11 @@ namespace MPF
             double R = 8.3144;
             double d0 = 0.000041;
             double dx2 = 0.01;
-            double Vn = 3;
+            double Vn = 2;
             double D = d0 * Math.Exp(-Q / (R * temp_k)) * 1e8;
             double wspDyfuzji = 0;
             int ksi = 5;
 
-            string origin = @"D:\projekty\chart.txt";
-            if (File.Exists(origin))
-            {
-                File.Delete(origin);
-            }
             while (ksi < tab0.Length)
             {
                 tab = new double[ksi + 1];
@@ -78,31 +73,20 @@ namespace MPF
                     tab[i] = tab0[i];
                     tab2[i] = 0;
                 }
-
                 double dt = 0.1;
                 while (tab[ksi] < GetCoal(temp))
                 {
                      if ((wspDyfuzji = (D * dt) / dx2) >= 0.5) break;
                     for (int i = 1; i < tab.Length - 1; i++)
-                        tab2[i] = (1 - 2 * wspDyfuzji) * tab[i] + wspDyfuzji * (tab[i - 1] + tab[i + 1]);
-                    tab2[0] = (1 - 2 * wspDyfuzji) * tab.First() + wspDyfuzji * (tab.First() + tab[1]);
-                    tab2[tab2.Length - 1] = (1 - 2 * wspDyfuzji) * tab.Last() + wspDyfuzji * (tab2[tab2.Length - 2] + tab.Last());
+                        tab2[i] = (1 - 2 * D) * tab[i] + D * (tab[i - 1] + tab[i + 1]);
+                    tab2[0] = (1 - 2 * D) * tab.First() + D * (tab.First() + tab[1]);
+                    tab2[tab2.Length - 1] = (1 - 2 * D) * tab.Last() + D * (tab2[tab2.Length - 2] + tab.Last());
                     tab = tab2;
                     dt += Vn;
                 }
-                
-                wypisz(ksi);
-                wypisz(tab);
 
                 for (int i = 0; i < ksi + 1; i++)
-                    tab0[i] = tab2[i];
-
-                string name = @"D:\projekty\chart.txt";
-                    foreach (var item in tab0)
-                        File.AppendAllText(name, item.ToString() + "\t");
-
-                    File.AppendAllText(name, Environment.NewLine);
-  
+                    tab0[i] = tab2[i];  
                 ksi++;
             }
         }
